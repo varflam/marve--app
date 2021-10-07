@@ -1,0 +1,40 @@
+@import './variables.sass'
+    
+.btn
+    position: relative
+    width: 101px
+    height: 38px
+    background-color: $main-color
+    color: #fff
+    border: none
+    font-size: 14px
+    line-height: 16px
+    text-transform: uppercase
+    cursor: pointer
+    &::after
+        position: absolute
+        content: ''
+        top: -7px
+        left: -7px
+        width: 14px
+        height: 14px
+        background: #FFFFFF
+        transform: rotate(-45deg)
+    &::before
+        position: absolute
+        content: ''
+        bottom: -7px
+        right: -7px
+        width: 14px
+        height: 14px
+        background: #FFFFFF
+        transform: rotate(-45deg)
+    &_gray
+        background: $gray
+    &_gray-bg
+        &::after
+            background: $dark
+        &::before
+            background: $dark
+    &_long
+        width: 170px

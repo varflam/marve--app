@@ -2,7 +2,7 @@ import './appHeader.sass';
 
 const AppHeader = () => {
     return(
-        <header class="app__header">
+        <header className="app__header">
             <h1 className="app__title">
                 <a href="!#">
                     <span>Marvel</span> information portal

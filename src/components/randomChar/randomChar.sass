@@ -1,0 +1,43 @@
+@import '../../style/variables'
+    
+.random
+    display: flex
+    flex-wrap: wrap
+    margin-bottom: 53px
+    &__char
+        width: 50%
+        padding: 35px 40px
+        background: #FFFFFF
+        box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25)
+        img
+            width: 150px
+            height: 150px
+            margin-right: 30px
+    &__wrapper
+        display: flex
+        margin-bottom: 25px
+    &__name
+        font-size: 22px
+        line-height: 26px
+        font-weight: bold
+        margin-bottom: 13px
+    &__descr
+        font-size: 14px
+    &__btns
+        display: flex
+        justify-content: space-around
+    &__try
+        background: url(../../resources/img/mielnor.png) $dark no-repeat bottom right
+        width: 50%
+        padding: 35px 40px
+        box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25)
+    &__today
+        font-size: 24px
+        line-height: 28px
+        color: #FFFFFF
+        margin-bottom: 55px
+    &__btn
+        &::after
+            background: $gray
+        &::before
+            background: $gray
