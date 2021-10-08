@@ -1,7 +1,10 @@
 import AppHeader from '../appHeader/AppHeader';
-import RandomChar from '../randomChar/RandomChar';
-import CharList from '../charList/CharList';
-import CharInfo from '../charInfo/CharInfo';
+// import RandomChar from '../randomChar/RandomChar';
+// import CharList from '../charList/CharList';
+// import CharInfo from '../charInfo/CharInfo';
+// import Skeleton from '../skeleton/Skeleton';
+import Advert from '../advert/Advert';
+import ComicsList from '../comicsList/ComicsList';
 
 import decoration from '../../resources/img/bg.jpg';
 
@@ -12,11 +15,8 @@ const App = () => {
     return(
         <div className="app">
             <AppHeader/>
-            <RandomChar/>
-            <div className="app__wrapper">
-                <CharList/>
-                <CharInfo/>
-            </div>
+            <Advert/>
+            <ComicsList/>
             <img 
                 className="bg-decoration"
                 src={decoration} 
