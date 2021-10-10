@@ -1,10 +1,11 @@
 import AppHeader from '../appHeader/AppHeader';
-// import RandomChar from '../randomChar/RandomChar';
-// import CharList from '../charList/CharList';
-// import CharInfo from '../charInfo/CharInfo';
+import RandomChar from '../randomChar/RandomChar';
+import CharList from '../charList/CharList';
+import CharInfo from '../charInfo/CharInfo';
 // import Skeleton from '../skeleton/Skeleton';
-import Advert from '../advert/Advert';
-import ComicsList from '../comicsList/ComicsList';
+// import Advert from '../advert/Advert';
+// import ComicsList from '../comicsList/ComicsList';
+// import SingleComic from '../singleComic/SingleComic';
 
 import decoration from '../../resources/img/bg.jpg';
 
@@ -15,8 +16,11 @@ const App = () => {
     return(
         <div className="app">
             <AppHeader/>
-            <Advert/>
-            <ComicsList/>
+            <RandomChar/>
+            <div className="char__content">
+                <CharList/>
+                <CharInfo/>
+            </div>
             <img 
                 className="bg-decoration"
                 src={decoration} 

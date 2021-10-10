@@ -1,20 +1,33 @@
 
 
 .comics-list
-    display: grid
-    grid-template-columns: repeat(3, 225px)
-    gap: 57px 67px
+    display: flex
+    flex-wrap: wrap
+    justify-content: space-between
     &__img
         width: 225px
         height: 346px
         filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.25))
         margin-bottom: 10px
+        margin-right: 15px
+        transition: .3s all ease-in
+        &:hover
+            filter: drop-shadow(0px 5px 20px #9F0013)
+            transform: translateY(-9px)
     &__title
         font-weight: bold
         font-size: 14px
         line-height: 16px
         margin-bottom: 9px
+        max-width: 225px
     &__price
         font-size: 14px
         line-height: 16px
         color: rgba(0, 0, 0, 0.6)
+        margin-bottom: 50px
+
+
+.btn__wrapper
+    display: flex
+    justify-content: center
+    width: 100%

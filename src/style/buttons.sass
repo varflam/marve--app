@@ -10,6 +10,7 @@
     font-size: 14px
     line-height: 16px
     text-transform: uppercase
+    transition: all .3s
     cursor: pointer
     &::after
         position: absolute
@@ -29,12 +30,18 @@
         height: 14px
         background: #FFFFFF
         transform: rotate(-45deg)
+    &:hover
+        background-color: darken($main-color, 15%)
     &_gray
         background: $gray
+        &:hover
+            background-color: darken($gray, 15%)
     &_gray-bg
         &::after
             background: $dark
         &::before
             background: $dark
+        &:hover
+            background-color: lighten($main-color, 5%)
     &_long
         width: 170px

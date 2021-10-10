@@ -1,0 +1,31 @@
+@import '../../style/variables'
+
+.single-comic
+    display: flex
+    flex-wrap: wrap
+    justify-content: space-between
+    &__img
+        max-width: 293px
+        max-height: 450px
+    &__info
+        max-width: 50%
+    &__title
+        font-weight: bold
+        font-size: 22px
+        line-height: 26px
+        margin-bottom: 28px
+    &__descr
+        font-size: 18px
+        margin-bottom: 28px
+    &__price
+        color: $main-color
+        font-weight: bold
+        font-size: 24px
+        line-height: 28px
+    &__back
+        font-weight: bold
+        font-size: 18px
+        line-height: 21px
+        transition: all .3s ease-in
+        &:hover
+            color: $main-color
