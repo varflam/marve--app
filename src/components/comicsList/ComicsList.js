@@ -7,29 +7,53 @@ const ComicsList = () => {
         <>
             <ul className="comics-list">
                 <li className="comics-list__item">
-                    <img src={comics} alt="Comics' oblozhka" className="comics-list__img" />
-                    <h3 className="comics-list__title">ULTIMATE X-MEN VOL. 5: ULTIMATE WAR TPB</h3>
-                    <p className="comics-list__price">9.99$</p>
+                    <a href="!#">
+                        <img src={comics} alt="Comics' oblozhka" className="comics-list__img" />
+                        <h3 className="comics-list__title">ULTIMATE X-MEN VOL. 5: ULTIMATE WAR TPB</h3>
+                        <p className="comics-list__price">9.99$</p>
+                    </a>
                 </li>
                 <li className="comics-list__item">
-                    <img src={comics} alt="Comics' oblozhka" className="comics-list__img" />
-                    <h3 className="comics-list__title">ULTIMATE X-MEN VOL. 5: ULTIMATE WAR TPB</h3>
-                    <p className="comics-list__price">9.99$</p>
+                    <a href="!#">
+                        <img src={comics} alt="Comics' oblozhka" className="comics-list__img" />
+                        <h3 className="comics-list__title">ULTIMATE X-MEN VOL. 5: ULTIMATE WAR TPB</h3>
+                        <p className="comics-list__price">9.99$</p>
+                    </a>
                 </li>
                 <li className="comics-list__item">
-                    <img src={comics} alt="Comics' oblozhka" className="comics-list__img" />
-                    <h3 className="comics-list__title">ULTIMATE X-MEN VOL. 5: ULTIMATE WAR TPB</h3>
-                    <p className="comics-list__price">9.99$</p>
+                    <a href="!#">
+                        <img src={comics} alt="Comics' oblozhka" className="comics-list__img" />
+                        <h3 className="comics-list__title">ULTIMATE X-MEN VOL. 5: ULTIMATE WAR TPB</h3>
+                        <p className="comics-list__price">9.99$</p>
+                    </a>
                 </li>
                 <li className="comics-list__item">
-                    <img src={comics} alt="Comics' oblozhka" className="comics-list__img" />
-                    <h3 className="comics-list__title">ULTIMATE X-MEN VOL. 5: ULTIMATE WAR TPB</h3>
-                    <p className="comics-list__price">9.99$</p>
+                    <a href="!#">
+                        <img src={comics} alt="Comics' oblozhka" className="comics-list__img" />
+                        <h3 className="comics-list__title">ULTIMATE X-MEN VOL. 5: ULTIMATE WAR TPB</h3>
+                        <p className="comics-list__price">9.99$</p>
+                    </a>
                 </li>
                 <li className="comics-list__item">
-                    <img src={comics} alt="Comics' oblozhka" className="comics-list__img" />
-                    <h3 className="comics-list__title">ULTIMATE X-MEN VOL. 5: ULTIMATE WAR TPB</h3>
-                    <p className="comics-list__price">9.99$</p>
+                    <a href="!#">
+                        <img src={comics} alt="Comics' oblozhka" className="comics-list__img" />
+                        <h3 className="comics-list__title">ULTIMATE X-MEN VOL. 5: ULTIMATE WAR TPB</h3>
+                        <p className="comics-list__price">9.99$</p>
+                    </a>
+                </li>
+                <li className="comics-list__item">
+                    <a href="!#">
+                        <img src={comics} alt="Comics' oblozhka" className="comics-list__img" />
+                        <h3 className="comics-list__title">ULTIMATE X-MEN VOL. 5: ULTIMATE WAR TPB</h3>
+                        <p className="comics-list__price">9.99$</p>
+                    </a>
+                </li>
+                <li className="comics-list__item">
+                    <a href="!#">
+                        <img src={comics} alt="Comics' oblozhka" className="comics-list__img" />
+                        <h3 className="comics-list__title">ULTIMATE X-MEN VOL. 5: ULTIMATE WAR TPB</h3>
+                        <p className="comics-list__price">9.99$</p>
+                    </a>
                 </li>
             </ul>
             <div className="btn__wrapper">
