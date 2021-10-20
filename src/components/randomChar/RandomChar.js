@@ -6,12 +6,6 @@ import MarvelService from '../../services/MarvelService';
 import './randomChar.sass';
 
 class RandomChar extends Component {
-    constructor(props) {
-        super(props);
-
-        this.updateChar();
-    }
-
 
     state = {
         char: {},
@@ -21,10 +15,19 @@ class RandomChar extends Component {
 
     marvelService = new MarvelService();
 
+    componentDidMount() {
+        this.updateChar();
+        // this.timerId = setInterval(this.updateChar, 3000)
+    }
+
+    // componentWillUnmount() {
+    //     clearInterval(this.timerId);
+    // }
+
     onCharLoaded = (char) => {
         this.setState({
             char,
-            loading: false
+            loading: false,
         });
     }
 
@@ -36,6 +39,10 @@ class RandomChar extends Component {
     }
 
     updateChar = () => {
+        this.setState({
+            loading: true,
+            error: false
+        });
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
         this.marvelService
             .getCharacter(id)
@@ -65,7 +72,10 @@ class RandomChar extends Component {
                     Do you want to get to know him better?
                     <br/> <br/>
                     Or choose another one</p>
-                    <button type="button" className="btn btn_gray-bg">TRY IT</button>
+                    <button 
+                        type="button" 
+                        className="btn btn_gray-bg"
+                        onClick={this.updateChar}>TRY IT</button>
                 </div>
             </div>
         )
