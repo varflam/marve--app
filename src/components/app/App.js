@@ -3,7 +3,7 @@ import AppHeader from '../appHeader/AppHeader';
 import RandomChar from '../randomChar/RandomChar';
 import CharList from '../charList/CharList';
 import CharInfo from '../charInfo/CharInfo';
-// import Skeleton from '../skeleton/Skeleton';
+import ErrorBoundary from '../errorBoundary/ErrorBoundary';
 // import Advert from '../advert/Advert';
 // import ComicsList from '../comicsList/ComicsList';
 // import SingleComic from '../singleComic/SingleComic';
@@ -28,10 +28,16 @@ class App extends Component {
             <div className="app">
                 <main>
                     <AppHeader/>
-                    <RandomChar/>
+                    <ErrorBoundary>
+                        <RandomChar/>
+                    </ErrorBoundary>
                     <div className="char__content">
-                        <CharList onCharIdSelect={this.onCharIdSelect}/>
-                        <CharInfo charId={this.state.charId}/>
+                        <ErrorBoundary>
+                            <CharList onCharIdSelect={this.onCharIdSelect}/>
+                        </ErrorBoundary>
+                        <ErrorBoundary>
+                            <CharInfo charId={this.state.charId}/>
+                        </ErrorBoundary>
                     </div>
                 </main>
             </div>
