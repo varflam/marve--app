@@ -1,25 +1,113 @@
-import loki from '../../resources/img/loki.png';
+import { Component } from 'react';
+import MarvelService from '../../services/MarvelService';
+import Spinner from '../spinner/Spinner';
+import Error from '../error/Error';
+import Skeleton from '../skeleton/Skeleton';
 
 import './charInfo.sass';
 
-const CharInfo = () => {
+class CharInfo extends Component {
+
+    state = {
+        char: null,
+        loading: false,
+        error: false
+    }
+
+    marvelService = new MarvelService();
+
+    componentDidMount() {
+        this.updateChar();
+    }
+
+    componentDidUpdate(prevProps) {
+        if(prevProps.charId !== this.props.charId) {
+            this.updateChar();
+        }
+    }
+
+    onCharLoaded = (char) => {
+        this.setState({
+            char,
+            loading: false,
+        });
+    }
+
+    onError = () => {
+        this.setState({
+            loading: false,
+            error: true
+        })
+    }
+
+    updateChar = () => {
+        const {charId} = this.props;
+
+        if(!charId) {
+            return;
+        }
+
+        this.setState({
+            loading: true,
+            error: false
+        });
+
+        this.marvelService
+            .getCharacter(charId)
+            .then(this.onCharLoaded)
+            .catch(this.onError)
+    }
+
+    render() {
+
+        const {char, loading, error} = this.state;
+        
+        const skeleton = loading || error || char ? null : <Skeleton/>
+        const spinner = loading ? <Spinner/> : null;
+        const errorMessage = error ? <Error/> : null;
+        const content = !(loading || error || !char) ? <View char={char}/> : null;
+
+        return(
+            <div className="char-info">
+                {skeleton}
+                {content}
+                {errorMessage}
+                {spinner}
+            </div>
+        )
+    }
+} 
+
+const View = ({char}) => {
+    const {name, description, thumbnail, homepage, wiki, comics} = char;
+
+    let comicsList;
+
+    if(comics.length !== 0) {
+        comicsList = comics.map((item, i) => {
+            return(
+                <li key={i} className="char-info__comics-item">
+                    {item.name}
+                </li>
+            )
+        });
+    } else {
+        comicsList = 'Sorry, there is no comics';
+    }
+
     return(
-        <div className="char-info">
-            <img src={loki} alt={loki} />
-            <h3 className="char-info__name">LOKI</h3>
-            <button className="btn">HOMEPAGE</button>
-            <button className="btn btn_gray">WIKI</button>
-            <div className="char-info__descr">In Norse mythology, Loki is a god or jötunn (or both). Loki is the son of Fárbauti and Laufey, and the brother of Helblindi and Býleistr. By the jötunn Angrboða, Loki is the father of Hel, the wolf Fenrir, and the world serpent Jörmungandr. By Sigyn, Loki is the father of Nari and/or Narfi and with the stallion Svaðilfari as the father, Loki gave birth—in the form of a mare—to the eight-legged horse Sleipnir. In addition, Loki is referred to as the father of Váli in the Prose Edda.</div>
+        <>
+            <img src={thumbnail} alt={name} />
+            <h3 className="char-info__name">{name}</h3>
+            <button className="btn"><a href={homepage}>HOMEPAGE</a></button>
+            <button className="btn btn_gray"><a href={wiki}>WIKI</a></button>
+            <div className="char-info__descr">{description}</div>
 
             <h3 className="char-info__ul-title">Comics:</h3>
             <ul className="char-info__comics">
-                <li className="char-info__comics-item">All-Winners Squad: Band of Heroes (2011) #3</li>
-                <li className="char-info__comics-item">All-Winners Squad: Band of Heroes (2011) #3</li>
-                <li className="char-info__comics-item">All-Winners Squad: Band of Heroes (2011) #3</li>
-                <li className="char-info__comics-item">All-Winners Squad: Band of Heroes (2011) #3</li>
-                <li className="char-info__comics-item">All-Winners Squad: Band of Heroes (2011) #3</li>
+                {comicsList}
             </ul>
-        </div>
+        </>
     )
 }
 

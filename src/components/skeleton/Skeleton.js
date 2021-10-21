@@ -2,7 +2,7 @@ import './skeleton.sass';
 
 const Skeleton = () => {
     return (
-        <div className="skeleton">
+        <>
             <p className="skeleton__select">Please select a character to see information</p>
             <div className="skeleton__wrapper">
                 <div className="pulse skeleton__header">
@@ -13,7 +13,7 @@ const Skeleton = () => {
                 <div className="pulse skeleton__block"></div>
                 <div className="pulse skeleton__block"></div>
             </div>
-        </div>
+        </>
     )
 }
 
