@@ -10,27 +10,47 @@ class CharList extends Component {
     state = {
         charList: [],
         loading: true,
-        error: false
+        error: false,
+        offset: 210,
+        newCharLoading: false,
+        charEnded: false
     }
 
     marvelService = new MarvelService();
 
     componentDidMount() {
-        this.listUpdate();
+        this.onRequest();
     }
 
-    listUpdate = () => {
+    onRequest = (offset) => {
+        this.onCharLoading();
+
         this.marvelService
-            .getAllCharacters()
+            .getAllCharacters(offset)
             .then(this.onLoadedList)
             .catch(this.onError)
     }
 
-    onLoadedList = (charList) => {
+    onCharLoading = () => {
         this.setState({
-            charList,
-            loading: false
-        });
+            newCharLoading: true
+        })
+    }
+
+    onLoadedList = (newCharList) => {
+        let ended = false;
+
+        if(newCharList.length < 9) {
+            ended = true;
+        }
+
+        this.setState(({charList, offset}) => ({
+            charList: [...charList, ...newCharList],
+            loading: false,
+            newCharLoading: false,
+            offset: offset + 9,
+            charEnded: ended
+        }));
     }
 
     onError = () => {
@@ -40,49 +60,55 @@ class CharList extends Component {
         })
     }
 
+    renderCharItems = (charList) => {
+        const list = charList.map(item => {
+            return(
+                <li className="char-list__item"
+                    key={item.id}
+                    onClick={() => this.onCharIdSelect(item.id)}>
+                        <img src={item.thumbnail} alt={item.name} className="char-list__img" />
+                        <h3 className="char-list__name">{item.name}</h3>
+                </li> 
+            )
+        });
+
+        return(
+            <ul className="char-list">
+                {list}
+            </ul>
+        )
+    }
+
 
     render() {
-        const {charList, loading, error} = this.state;
+        const {charList, loading, error, newCharLoading, charEnded, offset} = this.state;
+
+        const items = this.renderCharItems(charList);
+        const btn =                 
+        <div className="btn__wrapper">
+            <button
+                type="button"
+                className="btn btn_long"
+                style={charEnded ? {display: 'none'} : {display: 'block'}}
+                onClick={() => this.onRequest(offset)}
+                disabled={newCharLoading}
+                >LOAD MORE</button>
+        </div>
         
         const spinner = loading ? <Spinner/> : null;
         const errorMessage = error ? <Error/> : null;
-        const content = !(loading || error) ? <View charList={charList} onCharIdSelect={this.props.onCharIdSelect}/> : null;
+        const content = !(loading || error) ? items : null;
+        const visibleBtn = !(loading || error) ? btn : null;
 
         return(
             <div>
                 {content}
                 {errorMessage}
                 {spinner}
+                {visibleBtn}
             </div>
         )
     }
-}
-
-const View = ({charList, onCharIdSelect}) => {
-    const list = charList.map(item => {
-        return(
-            <li className="char-list__item"
-                key={item.id}
-                onClick={() => onCharIdSelect(item.id)}>
-                    <img src={item.thumbnail} alt={item.name} className="char-list__img" />
-                    <h3 className="char-list__name">{item.name}</h3>
-            </li> 
-        )
-    })
-
-    return(
-        <>
-            <ul className="char-list">
-                {list}
-            </ul>
-            <div className="btn__wrapper">
-                    <button
-                        type="button"
-                        className="btn btn_long"
-                        >LOAD MORE</button>
-            </div>
-        </>
-    )
 }
 
 export default CharList;
