@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import MarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/Spinner';
 import Error from '../error/Error';
@@ -13,7 +14,7 @@ class CharList extends Component {
         error: false,
         offset: 210,
         newCharLoading: false,
-        charEnded: false
+        charEnded: false,
     }
 
     marvelService = new MarvelService();
@@ -37,10 +38,15 @@ class CharList extends Component {
         })
     }
 
+    onSelectChar = (id) => {
+        this.props.onCharIdSelect(id);
+        window.scrollTo({ top: 450, behavior: 'smooth' });
+    }
+
     onLoadedList = (newCharList) => {
         let ended = false;
 
-        if(newCharList.length < 9) {
+        if(newCharList.length < 9 || this.state.offset === 1550) {
             ended = true;
         }
 
@@ -65,7 +71,7 @@ class CharList extends Component {
             return(
                 <li className="char-list__item"
                     key={item.id}
-                    onClick={() => this.onCharIdSelect(item.id)}>
+                    onClick={() => this.onSelectChar(item.id)}>
                         <img src={item.thumbnail} alt={item.name} className="char-list__img" />
                         <h3 className="char-list__name">{item.name}</h3>
                 </li> 
@@ -109,6 +115,10 @@ class CharList extends Component {
             </div>
         )
     }
+}
+
+CharList.propTypes = {
+    onCharIdSelect: PropTypes.func
 }
 
 export default CharList;
