@@ -38,9 +38,14 @@ class CharList extends Component {
         })
     }
 
-    onSelectChar = (id) => {
+    onSelectChar = (id, i) => {
         this.props.onCharIdSelect(id);
         window.scrollTo({ top: 450, behavior: 'smooth' });
+        this.itemRef.forEach(item => {
+            item.classList.remove('char-list__item_active');
+        });
+        this.itemRef[i].classList.add('char-list__item_active');
+        this.itemRef[i].focus();
     }
 
     onLoadedList = (newCharList) => {
@@ -66,13 +71,30 @@ class CharList extends Component {
         })
     }
 
+    itemRef = [];
+
+    setItemRef = (item) => {
+        this.itemRef.push(item);
+    }
+
     renderCharItems = (charList) => {
-        const list = charList.map(item => {
+        const list = charList.map((item, i) => {
             return(
                 <li className="char-list__item"
                     key={item.id}
-                    onClick={() => this.onSelectChar(item.id)}>
-                        <img src={item.thumbnail} alt={item.name} className="char-list__img" />
+                    tabIndex="0"
+                    ref={this.setItemRef}
+                    onClick={() => this.onSelectChar(item.id, i)}
+                    onKeyPress={(e) => {
+                        if(e.key === '' || e.key === 'Enter') {
+                            this.onSelectChar(item.id, i)
+                        }
+                    }}>
+                        <img 
+                            src={item.thumbnail} 
+                            alt={item.name} 
+                            className="char-list__img"
+                            style={item.thumbnail !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg' ? {'objectFit': 'cover'} : null} />
                         <h3 className="char-list__name">{item.name}</h3>
                 </li> 
             )
