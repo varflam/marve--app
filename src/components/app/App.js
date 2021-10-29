@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import AppHeader from '../appHeader/AppHeader';
 import RandomChar from '../randomChar/RandomChar';
 import CharList from '../charList/CharList';
@@ -11,38 +11,32 @@ import ErrorBoundary from '../errorBoundary/ErrorBoundary';
 import './app.sass';
 import '../../style/buttons.sass';
 
-class App extends Component {
+const App = () => {
 
-    state = {
-        charId: null,
+    const [charId, setCharId] = useState(null);
+
+    const onCharIdSelect = (id) => {
+        setCharId(id)
     }
 
-    onCharIdSelect = (id) => {
-        this.setState({
-            charId: id
-        });
-    }
-
-    render() {
-        return(
-            <div className="app">
-                <main>
-                    <AppHeader/>
+    return(
+        <div className="app">
+            <main>
+                <AppHeader/>
+                <ErrorBoundary>
+                    <RandomChar/>
+                </ErrorBoundary>
+                <div className="char__content">
                     <ErrorBoundary>
-                        <RandomChar/>
+                        <CharList onCharIdSelect={onCharIdSelect}/>
                     </ErrorBoundary>
-                    <div className="char__content">
-                        <ErrorBoundary>
-                            <CharList onCharIdSelect={this.onCharIdSelect}/>
-                        </ErrorBoundary>
-                        <ErrorBoundary>
-                            <CharInfo charId={this.state.charId}/>
-                        </ErrorBoundary>
-                    </div>
-                </main>
-            </div>
-        )
-    }
+                    <ErrorBoundary>
+                        <CharInfo charId={charId}/>
+                    </ErrorBoundary>
+                </div>
+            </main>
+        </div>
+    )
 } 
 
 
