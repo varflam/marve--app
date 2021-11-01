@@ -84,20 +84,9 @@ const CharList = ({onCharIdSelect}) => {
     }
 
     const items = renderCharItems(charList);
-    const btn =                 
-    <div className="btn__wrapper">
-        <button
-            type="button"
-            className="btn btn_long"
-            style={charEnded ? {display: 'none'} : {display: 'block'}}
-            onClick={() => onRequest(offset, false)}
-            disabled={newCharLoading}
-            >LOAD MORE</button>
-    </div>
     
     const spinner = loading && !newCharLoading ? <Spinner/> : null;
     const errorMessage = error ? <Error/> : null;
-    const visibleBtn = !(loading || error) ? btn : null;
 
     return(
         <div>
