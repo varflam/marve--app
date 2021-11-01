@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import MarvelService from '../../services/MarvelService';
+import useMarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/Spinner';
 import Error from '../error/Error';
 
@@ -9,27 +9,19 @@ import './charList.sass';
 const CharList = ({onCharIdSelect}) => {
 
     const [charList, setCharList] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
     const [offset, setOffset] = useState(210);
     const [newCharLoading, setNewCharLoading] = useState(false);
     const [charEnded, setCharEnded] = useState(false);
 
-    const marvelService = new MarvelService();
+    const {loading, error, getAllCharacters} = useMarvelService();
 
-    useEffect(() => onRequest(offset), []);
+    useEffect(() => onRequest(offset, true), []);
 
-    const onRequest = (offset) => {
-        onCharLoading();
-
-        marvelService
-            .getAllCharacters(offset)
-            .then(onLoadedList)
-            .catch(onError)
-    }
-
-    const onCharLoading = () => {
-        setNewCharLoading(true);
+    const onRequest = (offset, initial) => {
+        initial ? setNewCharLoading(false) : setNewCharLoading(true);
+        
+        getAllCharacters(offset)
+            .then(onLoadedList);
     }
 
     const onSelectChar = (id, i) => {
@@ -50,15 +42,9 @@ const CharList = ({onCharIdSelect}) => {
         }
 
         setCharList(charList => [...charList, ...newCharList]);
-        setLoading(false);
         setNewCharLoading(false);
         setOffset(offset => offset + 9);
         setCharEnded(ended);
-    }
-
-    const onError = () => {
-        setLoading(false);
-        setError(true);
     }
 
     const itemRef = [];
@@ -104,22 +90,29 @@ const CharList = ({onCharIdSelect}) => {
             type="button"
             className="btn btn_long"
             style={charEnded ? {display: 'none'} : {display: 'block'}}
-            onClick={() => onRequest(offset)}
+            onClick={() => onRequest(offset, false)}
             disabled={newCharLoading}
             >LOAD MORE</button>
     </div>
     
-    const spinner = loading ? <Spinner/> : null;
+    const spinner = loading && !newCharLoading ? <Spinner/> : null;
     const errorMessage = error ? <Error/> : null;
-    const content = !(loading || error) ? items : null;
     const visibleBtn = !(loading || error) ? btn : null;
 
     return(
         <div>
-            {content}
+            {items}
             {errorMessage}
             {spinner}
-            {visibleBtn}
+            <div className="btn__wrapper">
+                <button
+                    type="button"
+                    className="btn btn_long"
+                    style={charEnded ? {display: 'none'} : {display: 'block'}}
+                    onClick={() => onRequest(offset, false)}
+                    disabled={newCharLoading}
+                    >LOAD MORE</button>
+            </div>
         </div>
     )
 }
