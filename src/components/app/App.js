@@ -1,45 +1,29 @@
-import { useState } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 import AppHeader from '../appHeader/AppHeader';
-// import RandomChar from '../randomChar/RandomChar';
-// import CharList from '../charList/CharList';
-// import CharInfo from '../charInfo/CharInfo';
-import ErrorBoundary from '../errorBoundary/ErrorBoundary';
-import Advert from '../advert/Advert';
-import ComicsList from '../comicsList/ComicsList';
-// import SingleComic from '../singleComic/SingleComic';
+import { MainPage, ComicsPage } from '../pages';
 
 import './app.sass';
 import '../../style/buttons.sass';
 
 const App = () => {
 
-    // const [charId, setCharId] = useState(null);
-
-    // const onCharIdSelect = (id) => {
-    //     setCharId(id)
-    // }
-
     return(
-        <div className="app">
-            <main>
-                <AppHeader/>
-                {/* <ErrorBoundary>
-                    <RandomChar/>
-                </ErrorBoundary>
-                <div className="char__content">
-                    <ErrorBoundary>
-                        <CharList onCharIdSelect={onCharIdSelect}/>
-                    </ErrorBoundary>
-                    <ErrorBoundary>
-                        <CharInfo charId={charId}/>
-                    </ErrorBoundary>
-                </div> */}
-                <Advert/>
-                <ErrorBoundary>
-                    <ComicsList/>
-                </ErrorBoundary>
-            </main>
-        </div>
+        <Router>
+            <div className="app">
+                <main>
+                    <AppHeader/>
+                    <Switch>
+                        <Route exact path="/">
+                            <MainPage/>
+                        </Route>
+                        <Route exact path="/comics">
+                            <ComicsPage/>
+                        </Route>
+                    </Switch>
+                </main>
+            </div>
+        </Router>
     )
 } 
 
