@@ -43,7 +43,10 @@ const useMarvelService = () => {
         return {
             id: comics.id,
             title: comics.title,
-            thumbnail: comics.thumbnail.path + '.' + comics.thumbnail.extension
+            thumbnail: comics.thumbnail.path + '.' + comics.thumbnail.extension,
+            description: comics.description || 'Sorry, description is not available',
+            pageCount: comics.pageCount,
+            price: comics.prices[1]
         }
     }
 

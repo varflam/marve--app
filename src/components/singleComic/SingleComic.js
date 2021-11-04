@@ -1,26 +1,63 @@
-import comic from '../../resources/img/x-men.png';
+import { useParams, Link } from 'react-router-dom';
+import { useState, useEffect} from 'react';
+import useMarvelService from '../../services/MarvelService';
+import Spinner from '../spinner/Spinner';
+import Error from '../error/Error';
 
 import './singleComic.sass';
 
 const SingleComic = () => {
+    const {comicId} = useParams();
+    const [comic, setComic] = useState(null);
+    const {loading, error, clearError, getComic} = useMarvelService();
+
+    useEffect(() => updateChar(), [comicId]);
+
+    const onComicLoaded = (comic) => {
+        setComic(comic);
+    }
+
+    const updateChar = () => {
+        clearError();
+
+        getComic(comicId)
+            .then(onComicLoaded);
+    }
+
+    const spinner = loading ? <Spinner/> : null;
+    const errorMessage = error ? <Error/> : null;
+    const content = !(loading || error || !comic) ? <View comic={comic}/> : null;
+
     return(
         <div className="single-comic">
-            <img src={comic} alt="" className="single-comic__img" />
+            {spinner}
+            {errorMessage}
+            {content}
+            <Link to="/comics" className="single-comic__back">Back to all</Link>
+        </div>
+    )
+}
+
+const View = ({comic}) => {
+    const {title, thumbnail, description, pageCount, price} = comic;
+
+    return(
+        <>
+            <img src={thumbnail} alt={title} className="single-comic__img" />
             <div className="single-comic__info">
-                <h3 className="single-comic__title">X-Men: Days of Future Past</h3>
-                <div className="single-comic__descr">Re-live the legendary first journey into the dystopian future of 2013 - where Sentinels stalk the Earth, and the X-Men are humanity's only hope...until they die! Also featuring the first appearance of Alpha Flight, the return of the Wendigo, the history of the X-Men from Cyclops himself...and a demon for Christmas!?
+                <h3 className="single-comic__title">{title}</h3>
+                <div className="single-comic__descr">{description}
                 <br />
                 <br />
-                144 pages
+                {pageCount} pages
                 <br />
                 <br />
                 Language: en-us</div>
                 <div className="single-comic__price">
-                9.99$
+                {price ? `${price}$` : 'Sorry, price is not available'}
                 </div>
             </div>
-            <a href="!#" className="single-comic__back">Back to all</a>
-        </div>
+        </>
     )
 }
 
