@@ -25,7 +25,7 @@ const useMarvelService = () => {
             thumbnail: char.thumbnail.path + '.' + char.thumbnail.extension,
             homepage: char.urls[0].url,
             wiki:  char.urls[1].url,
-            comics: char.comics.items.slice(0, 10) 
+            comics: char.comics.items.slice(0, 10)
         }
     }
 
@@ -46,7 +46,8 @@ const useMarvelService = () => {
             thumbnail: comics.thumbnail.path + '.' + comics.thumbnail.extension,
             description: comics.description || 'Sorry, description is not available',
             pageCount: comics.pageCount,
-            price: comics.prices[1]
+            language: comics.textObjects.language || '-',
+            price: comics.prices[0].price ? `${comics.prices[0].price}$` : 'not available'
         }
     }
 

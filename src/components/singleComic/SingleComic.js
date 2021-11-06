@@ -39,7 +39,7 @@ const SingleComic = () => {
 }
 
 const View = ({comic}) => {
-    const {title, thumbnail, description, pageCount, price} = comic;
+    const {title, thumbnail, description, pageCount, price, language} = comic;
 
     return(
         <>
@@ -52,9 +52,9 @@ const View = ({comic}) => {
                 {pageCount} pages
                 <br />
                 <br />
-                Language: en-us</div>
+                Language: {language}</div>
                 <div className="single-comic__price">
-                {price ? `${price}$` : 'Sorry, price is not available'}
+                {price}
                 </div>
             </div>
         </>
