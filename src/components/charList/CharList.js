@@ -1,5 +1,6 @@
 import { useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import useMarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/Spinner';
 import Error from '../error/Error';
@@ -56,29 +57,35 @@ const CharList = ({onCharIdSelect}) => {
     const renderCharItems = (charList) => {
         const list = charList.map((item, i) => {
             return(
-                <li className="char-list__item"
-                    key={item.id}
-                    tabIndex="0"
-                    ref={setItemRef}
-                    onClick={() => onSelectChar(item.id, i)}
-                    onKeyPress={(e) => {
-                        if(e.key === '' || e.key === 'Enter') {
-                            onSelectChar(item.id, i)
-                        }
-                    }}>
-                        <img 
-                            src={item.thumbnail} 
-                            alt={item.name} 
-                            className="char-list__img"
-                            style={item.thumbnail !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg' ? {'objectFit': 'cover'} : null} />
-                        <h3 className="char-list__name">{item.name}</h3>
-                </li> 
+                <CSSTransition 
+                    key={item.id} 
+                    classNames="char-list__item" 
+                    timeout={500}>
+                    <li className="char-list__item"
+                        tabIndex="0"
+                        ref={setItemRef}
+                        onClick={() => onSelectChar(item.id, i)}
+                        onKeyPress={(e) => {
+                            if(e.key === '' || e.key === 'Enter') {
+                                onSelectChar(item.id, i)
+                            }
+                        }}>
+                            <img 
+                                src={item.thumbnail} 
+                                alt={item.name} 
+                                className="char-list__img"
+                                style={item.thumbnail !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg' ? {'objectFit': 'cover'} : null} />
+                            <h3 className="char-list__name">{item.name}</h3>
+                    </li> 
+                </CSSTransition>
             )
         });
 
         return(
             <ul className="char-list">
-                {list}
+                <TransitionGroup component={null}>
+                    {list}
+                </TransitionGroup>
             </ul>
         )
     }
