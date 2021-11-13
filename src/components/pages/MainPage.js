@@ -3,6 +3,7 @@ import { useState } from 'react';
 import RandomChar from '../randomChar/RandomChar';
 import CharList from '../charList/CharList';
 import CharInfo from '../charInfo/CharInfo';
+import SearchCharForm from '../searchCharForm/SearchCharForm';
 import ErrorBoundary from '../errorBoundary/ErrorBoundary';
 
 const MainPage = () => {
@@ -21,9 +22,14 @@ const MainPage = () => {
                 <ErrorBoundary>
                     <CharList onCharIdSelect={onCharIdSelect}/>
                 </ErrorBoundary>
-                <ErrorBoundary>
-                    <CharInfo charId={charId}/>
-                </ErrorBoundary>
+                <div>
+                    <ErrorBoundary>
+                        <CharInfo charId={charId}/>
+                    </ErrorBoundary>
+                    <ErrorBoundary>
+                        <SearchCharForm/>
+                    </ErrorBoundary>
+                </div>
             </div>
         </>
     )
