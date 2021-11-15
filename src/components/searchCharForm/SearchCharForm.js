@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useMarvelService from "../../services/MarvelService";
+import { Link } from 'react-router-dom';
 import Error from '../error/Error';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -20,6 +21,15 @@ const SearchCharForm = () => {
         getCharacterByName(char)
             .then(onCharLoaded);
     }
+
+    const errorMessage = error ? <div className="char__search-critical-error"><ErrorMessage /></div> : null;
+    const results = char ? 
+                    <div className="char__search-wrapper">
+                    <p className="char__search-success">{`There is! Visit ${char.name} page?`}</p>
+                    <button className="btn btn_gray"><Link to={`/charactes/${char.id}`}>TO PAGE</Link></button>
+                    </div>
+                    :
+                    <p className="char__search-error">The character was not found. Check the name and try again</p>;
 
     return(
         <div className="char__search">
@@ -50,6 +60,8 @@ const SearchCharForm = () => {
                             className="char__search-error" 
                             name="char_search" 
                             component="div"/>
+                    {results}
+                    {errorMessage}
                 </Form>
             </Formik>
         </div>
