@@ -10,13 +10,13 @@ import '../../style/buttons.sass';
 
 const MainPage = lazy(() => import('../pages/MainPage'));
 const ComicsPage = lazy(() => import('../pages/ComicsPage'));
-const SingleItem = lazy(() => import('../singleItem/SingleItem'));
-const SingleItemChar = lazy(() => import('../singleItem/SingleItemChar'));
-const SingleItemComic = lazy(() => import('../singleItem/SingleItemComic'));
+const SingleItemChar = lazy(() => import('../pages/singleItemChar/SingleItemChar'));
+const SingleItemComic = lazy(() => import('../pages/singleItemComic/SingleItemComic'));
+const SingleItem = lazy(() => import('../pages/SingleItem'));
+
 
 
 const App = () => {
-
     return(
         <Router>
             <div className="app">
@@ -30,11 +30,11 @@ const App = () => {
                             <Route exact path="/comics">
                                 <ComicsPage/>
                             </Route>
-                            <Route path="/comics/:comicId" component={SingleItemComic} dataType='comic'>
-                                <SingleItem/>
+                            <Route exact path="/comics/:id">
+                                <SingleItem Component={SingleItemComic} dataType='comic'/>
                             </Route>
-                            <Route path="/characters/:characterId" component={SingleItemChar} dataType='character'>
-                                <SingleItem/>
+                            <Route exact path="/characters/:id">
+                                <SingleItem Component={SingleItemChar} dataType='character'/>
                             </Route>
                             <Route path="*">
                                 <Page404/>

@@ -1,23 +1,18 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useState, useEffect} from 'react';
+
 import useMarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/Spinner';
 import Error from '../error/Error';
-
-import './singleItem.sass';
 
 const SingleItem = ({Component, dataType}) => {
     const {id} = useParams();
     const [data, setData] = useState(null);
     const {loading, error, clearError, getComic, getCharacter} = useMarvelService();
 
-    useEffect(() => updateChar(), [id]);
+    useEffect(() => updateData(), [id]);
 
-    const onDataLoaded = (id) => {
-        setData(id);
-    }
-
-    const updateChar = () => {
+    const updateData = () => {
         clearError();
 
         switch (dataType) {
@@ -32,17 +27,20 @@ const SingleItem = ({Component, dataType}) => {
         }
     }
 
+        const onDataLoaded = (data) => {
+        setData(data);
+    }
+
     const spinner = loading ? <Spinner/> : null;
     const errorMessage = error ? <Error/> : null;
     const content = !(loading || error || !data) ? <Component data={data}/> : null;
 
     return(
-        <div className="single-comic">
+        <>
             {spinner}
             {errorMessage}
             {content}
-            <Link to="/comics" className="single-comic__back">Back to all</Link>
-        </div>
+        </>
     )
 }
 
