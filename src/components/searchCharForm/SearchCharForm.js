@@ -9,6 +9,7 @@ import './searchCharForm.sass';
 
 const SearchCharForm = () => {
     const [char, setChar] = useState(null);
+    const [inputValue, setInputValue] = useState('');
     const {getCharacterByName, clearError, loading, error} = useMarvelService();
 
     const onCharLoaded = (char) => {
@@ -22,17 +23,16 @@ const SearchCharForm = () => {
             .then(onCharLoaded);
     }
 
-    const errorMessage = error ? <div className="char__search-critical-error"><Error /></div> : null;
-    const results = !char ? null : char.name.length > 0 ? 
+    const errorMessage = error ? <div className="char__search-critical-error"><Error/></div> : null;
+    const results = char === null ? null : char === undefined ? 
+                     <p className="char__search-error">The character was not found. Check the name and try again</p>
+                    :
                     <div className="char__search-wrapper">
                     <p className="char__search-success">{`There is! Visit ${char.name} page?`}</p>
                     <button className="btn btn_gray"><Link to={`/characters/${char.id}`}>TO PAGE</Link></button>
-                    </div>
-                    :
-                    <p className="char__search-error">The character was not found. Check the name and try again</p>;
-
+                    </div>;
     return(
-        <div className="char__search">
+        <div className="char__search-form">
             <Formik 
                 initialValues={{char_search: ''}}
                 validationSchema={Yup.object({
@@ -43,7 +43,7 @@ const SearchCharForm = () => {
                     updateChar(value.char_search);
                   }}
             >
-                <Form className="char__search-form">
+                <Form>
                     <label htmlFor="char_search" className="char__search-label">Or find a character by name:</label>
                     <div className="char__search-wrapper">
                         <Field 
@@ -59,10 +59,10 @@ const SearchCharForm = () => {
                             className="char__search-error" 
                             name="char_search" 
                             component="div"/>
-                    {results}
-                    {errorMessage}
                 </Form>
             </Formik>
+            {results}
+            {errorMessage}
         </div>
     )
 }

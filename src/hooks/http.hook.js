@@ -31,7 +31,7 @@ const useHttp = () => {
         error,
         loading,
         onRequest,
-        clearError
+        clearError,
     }
 }
 
