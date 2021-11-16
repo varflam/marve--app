@@ -1,4 +1,4 @@
-import MainPage from './MainPage';
+import MainPage from './mainPage/MainPage';
 import ComicsPage from './ComicsPage';
 import Page404 from './Page404';
 import SingleItem from './SingleItem';

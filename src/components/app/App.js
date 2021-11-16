@@ -8,7 +8,7 @@ import { Page404 } from '../pages';
 import './app.sass';
 import '../../style/buttons.sass';
 
-const MainPage = lazy(() => import('../pages/MainPage'));
+const MainPage = lazy(() => import('../pages/mainPage/MainPage'));
 const ComicsPage = lazy(() => import('../pages/ComicsPage'));
 const SingleItemChar = lazy(() => import('../pages/singleItemChar/SingleItemChar'));
 const SingleItemComic = lazy(() => import('../pages/singleItemComic/SingleItemComic'));

@@ -22,8 +22,8 @@ const SearchCharForm = () => {
             .then(onCharLoaded);
     }
 
-    const errorMessage = error ? <div className="char__search-critical-error"><ErrorMessage /></div> : null;
-    const results = !char ? null : char ?
+    const errorMessage = error ? <div className="char__search-critical-error"><Error /></div> : null;
+    const results = !char ? null : char.name.length > 0 ? 
                     <div className="char__search-wrapper">
                     <p className="char__search-success">{`There is! Visit ${char.name} page?`}</p>
                     <button className="btn btn_gray"><Link to={`/characters/${char.id}`}>TO PAGE</Link></button>

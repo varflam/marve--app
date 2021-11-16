@@ -53,6 +53,7 @@ const RandomChar = () => {
 
 const View = ({char}) => {
     const {name, description, thumbnail, homepage, wiki} = char;
+    const showDescr = !description ?  'Sorry, description is not available' : `${description.substring(0, 210)}...`;
 
     return(
         <>
@@ -60,7 +61,7 @@ const View = ({char}) => {
                 <img src={thumbnail} alt="Random Character" />
                 <div className="random__info">
                     <h2 className="random__name">{name}</h2>
-                    <p className="random__descr">{description}</p>
+                    <p className="random__descr">{showDescr}</p>
                 </div>
             </div>
             <div className="random__btns">

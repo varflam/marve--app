@@ -4,6 +4,7 @@ import { useState, useEffect} from 'react';
 import useMarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/Spinner';
 import Error from '../error/Error';
+import Advert from '../advert/Advert';
 
 const SingleItem = ({Component, dataType}) => {
     const {id} = useParams();
@@ -37,6 +38,7 @@ const SingleItem = ({Component, dataType}) => {
 
     return(
         <>
+            <Advert/>
             {spinner}
             {errorMessage}
             {content}
