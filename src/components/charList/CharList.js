@@ -1,4 +1,4 @@
-import { useState, useEffect} from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import useMarvelService from '../../services/MarvelService';
@@ -7,6 +7,21 @@ import Error from '../error/Error';
 
 import './charList.sass';
 
+const setContent = (process, Component, newCharLoading) => {
+    switch (process) {
+        case 'waiting':
+            return <Spinner/>
+        case 'loading':
+            return newCharLoading ? <Component/> : <Spinner/>
+        case 'confirmed':
+            return <Component/>
+        case 'error':
+            return <Error/>
+        default:
+            throw new Error('Unexpected error');
+    }
+}
+
 const CharList = ({onCharIdSelect}) => {
 
     const [charList, setCharList] = useState([]);
@@ -14,15 +29,17 @@ const CharList = ({onCharIdSelect}) => {
     const [newCharLoading, setNewCharLoading] = useState(false);
     const [charEnded, setCharEnded] = useState(false);
 
-    const {loading, error, getAllCharacters} = useMarvelService();
+    const {getAllCharacters, process, setProcess} = useMarvelService();
 
+    // eslint-disable-next-line
     useEffect(() => onRequest(offset, true), []);
 
     const onRequest = (offset, initial) => {
         initial ? setNewCharLoading(false) : setNewCharLoading(true);
         
         getAllCharacters(offset)
-            .then(onLoadedList);
+            .then(onLoadedList)
+            .then(() => setProcess('confirmed'));
     }
 
     const onSelectChar = (id, i) => {
@@ -90,16 +107,14 @@ const CharList = ({onCharIdSelect}) => {
         )
     }
 
-    const items = renderCharItems(charList);
+    const elements = useMemo(() => {
+        return setContent(process, () => renderCharItems(charList), newCharLoading);
+        // eslint-disable-next-line
+    }, [process])
     
-    const spinner = loading && !newCharLoading ? <Spinner/> : null;
-    const errorMessage = error ? <Error/> : null;
-
     return(
         <div>
-            {items}
-            {errorMessage}
-            {spinner}
+            {elements}
             <div className="btn__wrapper">
                 <button
                     type="button"

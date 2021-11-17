@@ -1,15 +1,16 @@
 import { useState } from "react";
 import useMarvelService from "../../services/MarvelService";
 import { Link } from 'react-router-dom';
-import Error from '../error/Error';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+
+import Error from "../error/Error";
 
 import './searchCharForm.sass';
 
 const SearchCharForm = () => {
     const [char, setChar] = useState(null);
-    const { getCharacterByName, clearError, loading, error } = useMarvelService();
+    const { getCharacterByName, clearError, process } = useMarvelService();
 
     const onCharLoaded = (char) => {
         setChar(char);
@@ -22,14 +23,14 @@ const SearchCharForm = () => {
             .then(onCharLoaded);
     }
 
-    const errorMessage = error ? <div className="char__search-critical-error"><Error /></div> : null;
+    const errorMessage = process === 'error' ? <div className="char__search-critical-error"><Error/></div> : null;
     const results = char === null ? null : char === undefined ?
-        <p className="char__search-error">The character was not found. Check the name and try again</p>
-        :
-        <div className="char__search-wrapper">
-            <p className="char__search-success">{`There is! Visit ${char.name} page?`}</p>
-            <button className="btn btn_gray"><Link to={`/characters/${char.id}`}>TO PAGE</Link></button>
-        </div>;
+                    <p className="char__search-error">The character was not found. Check the name and try again</p>
+                    :
+                    <div className="char__search-wrapper">
+                        <p className="char__search-success">{`There is! Visit ${char.name} page?`}</p>
+                        <button className="btn btn_gray"><Link to={`/characters/${char.id}`}>TO PAGE</Link></button>
+                    </div>;
     return (
         <div className="char__search-form">
             <Formik
@@ -52,7 +53,8 @@ const SearchCharForm = () => {
                         <button
                             className="btn"
                             type="submit"
-                            disabled={loading}>FIND</button>
+                            disabled={process === 'loading'}
+                            >FIND</button>
                     </div>
                     <ErrorMessage
                         className="char__search-error"

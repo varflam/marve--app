@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import useMarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/Spinner';
@@ -6,21 +6,38 @@ import Error from '../error/Error';
 
 import './comicsList.sass';
 
+const setContent = (process, Component, newCharLoading) => {
+    switch (process) {
+        case 'waiting':
+            return <Spinner/>
+        case 'loading':
+            return newCharLoading ? <Component/> : <Spinner/>
+        case 'confirmed':
+            return <Component/>
+        case 'error':
+            return <Error/>
+        default:
+            throw new Error('Unexpected error');
+    }
+}
+
 const ComicsList = () => {
     const [comics, setComics] = useState([]);
     const [offset, setOffset] = useState(210);
     const [newComicsLoading, setNewComicsLoading] = useState(false);
     const [comicsEnded, setComicsEnded] = useState(false);
 
-    const {getAllComics, error, loading} = useMarvelService();
+    const {getAllComics, setProcess, process} = useMarvelService();
 
+        // eslint-disable-next-line
     useEffect(() => onRequest(offset, true), []);
 
     const onRequest = (offset, initial) => {
         initial ? setNewComicsLoading(false) : setNewComicsLoading(true);
         
         getAllComics(offset)
-            .then(onLoadedList);
+            .then(onLoadedList)
+            .then(() => setProcess('confirmed'));
     }
 
     const onLoadedList = (newComics) => {
@@ -57,16 +74,14 @@ const ComicsList = () => {
         )
     }
 
-    const items = renderComicsList(comics);
-
-    const spinner = loading && !newComicsLoading ? <Spinner/> : null;
-    const errorMessage = error ? <Error/> : null;
+    const elements = useMemo(() => {
+        return setContent(process, () => renderComicsList(comics), newComicsLoading);
+        // eslint-disable-next-line
+    }, [process])
 
     return(
         <>
-            {items}
-            {errorMessage}
-            {spinner}
+            {elements}
             <div className="btn__wrapper">
                 <button
                     type="button"

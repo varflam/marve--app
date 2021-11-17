@@ -2,14 +2,14 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect} from 'react';
 
 import useMarvelService from '../../services/MarvelService';
-import Spinner from '../spinner/Spinner';
+import setContent from '../../utils/setContent';
 import Error from '../error/Error';
 import Advert from '../advert/Advert';
 
 const SingleItem = ({Component, dataType}) => {
     const {id} = useParams();
     const [data, setData] = useState(null);
-    const {loading, error, clearError, getComic, getCharacter} = useMarvelService();
+    const {clearError, getComic, getCharacter, process, setProcess} = useMarvelService();
 
     useEffect(() => updateData(), [id]);
 
@@ -18,10 +18,14 @@ const SingleItem = ({Component, dataType}) => {
 
         switch (dataType) {
             case 'comic':
-                getComic(id).then(onDataLoaded);
+                getComic(id)
+                    .then(onDataLoaded)
+                    .then(() => setProcess('confirmed'));
                 break;
             case 'character':
-                getCharacter(id).then(onDataLoaded);
+                getCharacter(id)
+                    .then(onDataLoaded)
+                    .then(() => setProcess('confirmed'));
                 break;
             default:
                 return <Error/>
@@ -32,16 +36,12 @@ const SingleItem = ({Component, dataType}) => {
         setData(data);
     }
 
-    const spinner = loading ? <Spinner/> : null;
-    const errorMessage = error ? <Error/> : null;
-    const content = !(loading || error || !data) ? <Component data={data}/> : null;
-
     return(
         <>
             <Advert/>
-            {spinner}
-            {errorMessage}
-            {content}
+            {
+                setContent(process, Component, data)
+            }
         </>
     )
 }

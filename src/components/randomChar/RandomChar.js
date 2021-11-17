@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react';
 import Spinner from '../spinner/Spinner';
 import Error from '../error/Error';
 import useMarvelService from '../../services/MarvelService';
+import setContent from '../../utils/setContent';
 
 import './randomChar.sass';
 
 const RandomChar = () => {
     const [char, setChar] = useState({});
 
-    const {loading, error, getCharacter, clearError} = useMarvelService();
+    const {loading, error, getCharacter, clearError, process, setProcess} = useMarvelService();
 
     useEffect(() => updateChar(), []);
 
@@ -20,20 +21,16 @@ const RandomChar = () => {
         clearError();
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
         getCharacter(id)
-            .then(onCharLoaded);
+            .then(onCharLoaded)
+            .then(() => setProcess('confirmed'));
     }
-        
-        const spinner = loading ? <Spinner/> : null;
-        const errorMessage = error ? <Error/> : null;
-        const content = !(loading || error) ? <View char={char}/> : null;
-
 
     return (
         <div className="random">
             <div className="random__char">
-            {content}
-            {errorMessage}
-            {spinner}
+            {
+                setContent(process, View, char)
+            }
             </div>
             <div className="random__try">
                 <p className="random__today">
@@ -51,8 +48,8 @@ const RandomChar = () => {
     )
 } 
 
-const View = ({char}) => {
-    const {name, description, thumbnail, homepage, wiki} = char;
+const View = ({data}) => {
+    const {name, description, thumbnail, homepage, wiki} = data;
     const showDescr = !description ?  'Sorry, description is not available' : `${description.substring(0, 210)}...`;
 
     return(
