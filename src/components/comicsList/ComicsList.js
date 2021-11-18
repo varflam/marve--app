@@ -6,12 +6,12 @@ import Error from '../error/Error';
 
 import './comicsList.sass';
 
-const setContent = (process, Component, newCharLoading) => {
+const setContent = (process, Component, newItemLoading) => {
     switch (process) {
         case 'waiting':
             return <Spinner/>
         case 'loading':
-            return newCharLoading ? <Component/> : <Spinner/>
+            return newItemLoading ? <Component/> : <Spinner/>
         case 'confirmed':
             return <Component/>
         case 'error':

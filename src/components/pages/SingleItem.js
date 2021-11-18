@@ -10,7 +10,7 @@ const SingleItem = ({Component, dataType}) => {
     const {id} = useParams();
     const [data, setData] = useState(null);
     const {clearError, getComic, getCharacter, process, setProcess} = useMarvelService();
-
+// eslint-disable-next-line
     useEffect(() => updateData(), [id]);
 
     const updateData = () => {

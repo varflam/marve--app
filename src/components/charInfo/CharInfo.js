@@ -63,7 +63,7 @@ const View = ({data}) => {
             <h3 className="char-info__name">{name}</h3>
             <button className="btn"><a href={homepage}>HOMEPAGE</a></button>
             <button className="btn btn_gray"><a href={wiki}>WIKI</a></button>
-            <div className="char-info__descr">{description}</div>
+            <div className="char-info__descr">{description || 'Sorry, description is not available'}</div>
 
             <h3 className="char-info__ul-title">Comics:</h3>
             <ul className="char-info__comics">

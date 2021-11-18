@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import Spinner from '../spinner/Spinner';
-import Error from '../error/Error';
 import useMarvelService from '../../services/MarvelService';
 import setContent from '../../utils/setContent';
 
@@ -9,8 +7,8 @@ import './randomChar.sass';
 const RandomChar = () => {
     const [char, setChar] = useState({});
 
-    const {loading, error, getCharacter, clearError, process, setProcess} = useMarvelService();
-
+    const {getCharacter, clearError, process, setProcess} = useMarvelService();
+// eslint-disable-next-line
     useEffect(() => updateChar(), []);
 
     const onCharLoaded = (char) => {

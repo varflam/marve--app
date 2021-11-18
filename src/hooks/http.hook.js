@@ -19,6 +19,7 @@ const useHttp = () => {
 
         } catch(e) {
             setProcess('error');
+            throw e;
         }      
     }, []);
 
