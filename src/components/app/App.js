@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import AppHeader from '../appHeader/AppHeader';
 import Spinner from '../spinner/Spinner';
@@ -23,23 +23,21 @@ const App = () => {
                 <main>
                     <AppHeader/>
                     <Suspense fallback={<Spinner/>}>
-                        <Switch>
-                            <Route exact path="/">
-                                <MainPage/>
-                            </Route>
-                            <Route exact path="/comics">
-                                <ComicsPage/>
-                            </Route>
-                            <Route exact path="/comics/:id">
-                                <SingleItem Component={SingleItemComic} dataType='comic'/>
-                            </Route>
-                            <Route exact path="/characters/:id">
-                                <SingleItem Component={SingleItemChar} dataType='character'/>
-                            </Route>
-                            <Route path="*">
-                                <Page404/>
-                            </Route>
-                        </Switch>
+                        <Routes>
+                            <Route path="/" element={<MainPage/>}/>
+                            <Route path="/comics" element={<ComicsPage/>}/>
+                            <Route path="/comics/:id" 
+                                   element={
+                                        <SingleItem 
+                                        Component={SingleItemComic} 
+                                        dataType='comic'/>}/>
+                            <Route path="/characters/:id" 
+                                   element={
+                                        <SingleItem 
+                                        Component={SingleItemChar} 
+                                        dataType='character'/>}/>
+                            <Route path="*" element={<Page404/>}/>
+                        </Routes>
                     </Suspense>
                 </main>
             </div>
