@@ -29,9 +29,6 @@ const ComicsList = () => {
 
     const {getAllComics, setProcess, process} = useMarvelService();
 
-        // eslint-disable-next-line
-    useEffect(() => onRequest(offset, true), []);
-
     const onRequest = (offset, initial) => {
         initial ? setNewComicsLoading(false) : setNewComicsLoading(true);
         
@@ -39,6 +36,9 @@ const ComicsList = () => {
             .then(onLoadedList)
             .then(() => setProcess('confirmed'));
     }
+
+    // eslint-disable-next-line
+    useEffect(() => onRequest(offset, true), []);
 
     const onLoadedList = (newComics) => {
         let ended = false;
@@ -54,7 +54,7 @@ const ComicsList = () => {
     }
 
     const renderComicsList = (comicsList) => {
-        const list = comicsList.map((item, i) => {
+        return comicsList.map((item, i) => {
             return (
                 <li className="comics-list__item"
                     key={i}>
@@ -66,12 +66,6 @@ const ComicsList = () => {
                 </li>
             )
         });
-
-        return(
-            <ul className="comics-list">
-                {list}
-            </ul>
-        )
     }
 
     const elements = useMemo(() => {
@@ -81,7 +75,9 @@ const ComicsList = () => {
 
     return(
         <>
-            {elements}
+            <ul className="comics-list">
+                {elements}
+            </ul>
             <div className="btn__wrapper">
                 <button
                     type="button"

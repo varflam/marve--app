@@ -30,9 +30,6 @@ const CharList = ({onCharIdSelect}) => {
 
     const {getAllCharacters, process, setProcess} = useMarvelService();
 
-    // eslint-disable-next-line
-    useEffect(() => onRequest(offset, true), []);
-
     const onRequest = (offset, initial) => {
         initial ? setNewCharLoading(false) : setNewCharLoading(true);
         
@@ -40,6 +37,9 @@ const CharList = ({onCharIdSelect}) => {
             .then(onLoadedList)
             .then(() => setProcess('confirmed'));
     }
+
+    // eslint-disable-next-line
+    useEffect(() => onRequest(offset, true), []);
 
     const onSelectChar = (id, i) => {
         onCharIdSelect(id);
@@ -71,7 +71,7 @@ const CharList = ({onCharIdSelect}) => {
     }
 
     const renderCharItems = (charList) => {
-        const list = charList.map((item, i) => {
+        return charList.map((item, i) => {
             return(
                 <li className="char-list__item"
                     key={item.id}
@@ -92,30 +92,28 @@ const CharList = ({onCharIdSelect}) => {
                 </li> 
             )
         });
-
-        return(
-            <ul className="char-list">
-                {list}
-            </ul>
-        )
     }
 
     const elements = useMemo(() => {
         return setContent(process, () => renderCharItems(charList), newCharLoading);
         // eslint-disable-next-line
     }, [process])
-    
-    return(
-        <div>
-            {elements}
-            <div className="btn__wrapper">
-                <button
+
+    const btn = <button
                     type="button"
                     className="btn btn_long"
                     style={charEnded ? {display: 'none'} : {display: 'block'}}
                     onClick={() => onRequest(offset, false)}
                     disabled={newCharLoading}
-                    >LOAD MORE</button>
+                    >LOAD MORE</button>;
+    
+    return(
+        <div>
+            <ul className="char-list">
+                {elements}
+            </ul>
+            <div className="btn__wrapper">
+                { process === 'confirmed' || newCharLoading ? btn : null}
             </div>
         </div>
     )
