@@ -1,6 +1,6 @@
 <h1 align="center">Marvel info Portal</h1>
 
-![App screenshot](./readme_src/screenshot-app.PNG)
+![App screenshot](./readme_src/screenshot-app.png)
 
 ## What is this web application for? 🚀
 
@@ -16,6 +16,18 @@ All the data come from the Marvel API: https://developer.marvel.com/
 - Find information about selected character
 - Select a comics from the comics' list
 - Find information about selected comics
+
+## Technologies ⚒
+
+- Javascript ES6
+- React
+- React Router
+- React Helmet
+- Formik
+- BEM
+- CSS5
+- SASS
+- HTML5
 
 ## Setting up development environment 📍
 
