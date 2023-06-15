@@ -15,7 +15,7 @@ const Page404 = () => {
             </Helmet>
             <Error/>
             <p style={{'marginBottom': '20px'}}>This page does not exist</p>
-            <Link to="/" style={{'color': '#9f0008'}}>Back to the main page</Link>
+            <Link to="/marve--app/" style={{'color': '#9f0008'}}>Back to the main page</Link>
         </div>
     )
 }

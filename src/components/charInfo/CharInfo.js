@@ -49,7 +49,7 @@ const View = ({data}) => {
         comicsList = comics.map((item, i) => {
             return(
                 <li key={i} className="char-info__comics-item">
-                    <Link to={`/comics/${item.resourceURI.substring(43)}`}>{item.name}</Link>
+                    <Link to={`/marve--app/comics/${item.resourceURI.substring(43)}`}>{item.name}</Link>
                 </li>
             )
         });

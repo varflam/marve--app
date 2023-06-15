@@ -24,19 +24,19 @@ const App = () => {
                     <AppHeader/>
                     <Suspense fallback={<Spinner/>}>
                         <Routes>
-                            <Route path="/" element={<MainPage/>}/>
-                            <Route path="/comics" element={<ComicsPage/>}/>
-                            <Route path="/comics/:id" 
+                            <Route path="/marve--app/" element={<MainPage/>}/>
+                            <Route path="/marve--app/comics" element={<ComicsPage/>}/>
+                            <Route path="/marve--app/comics/:id" 
                                    element={
                                         <SingleItem 
                                         Component={SingleItemComic} 
                                         dataType='comic'/>}/>
-                            <Route path="/characters/:id" 
+                            <Route path="/marve--app/characters/:id" 
                                    element={
                                         <SingleItem 
                                         Component={SingleItemChar} 
                                         dataType='character'/>}/>
-                            <Route path="*" element={<Page404/>}/>
+                            <Route path="/marve--app/*" element={<Page404/>}/>
                         </Routes>
                     </Suspense>
                 </main>

@@ -29,7 +29,7 @@ const SearchCharForm = () => {
                     :
                     <div className="char__search-wrapper">
                         <p className="char__search-success">{`There is! Visit ${char.name} page?`}</p>
-                        <button className="btn btn_gray"><Link to={`/characters/${char.id}`}>TO PAGE</Link></button>
+                        <button className="btn btn_gray"><Link to={`/marve--app/characters/${char.id}`}>TO PAGE</Link></button>
                     </div>;
     return (
         <div className="char__search-form">
