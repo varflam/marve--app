@@ -1,12 +1,12 @@
 {
   "name": "marvel-app",
-  "version": "0.1.0",
-  "private": true,
+  "homepage": "https://varflam.github.io/marve--app/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "formik": "^2.2.9",
+    "gh-pages": "^5.0.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -21,6 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "npm run build && npx gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
