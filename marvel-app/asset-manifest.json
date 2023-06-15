@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/marve--app/static/css/main.9b6697e1.css",
+    "main.js": "/marve--app/static/js/main.33d4493a.js",
+    "static/media/bg.jpg": "/marve--app/static/media/bg.674a8a4d41e457bb75df.jpg",
+    "static/media/mielnor.png": "/marve--app/static/media/mielnor.b10f8e634d5efd274514.png",
+    "static/media/Avengers.png": "/marve--app/static/media/Avengers.c29e0ef078dddc7551e8.png",
+    "static/media/error.gif": "/marve--app/static/media/error.42292aa12b6bc303ce99.gif",
+    "static/media/Avengers-logo.png": "/marve--app/static/media/Avengers-logo.9b944f717f2c146c4762.png",
+    "index.html": "/marve--app/index.html",
+    "main.9b6697e1.css.map": "/marve--app/static/css/main.9b6697e1.css.map",
+    "main.33d4493a.js.map": "/marve--app/static/js/main.33d4493a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9b6697e1.css",
+    "static/js/main.33d4493a.js"
+  ]
+}
