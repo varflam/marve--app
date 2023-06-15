@@ -4,7 +4,7 @@
 
 ## What is this web application for? 🚀
 
-This application provides information about Marvel characters and comics'. 
+This application provides information about Marvel characters and comics'.
 
 All the data come from the Marvel API: https://developer.marvel.com/
 
@@ -37,4 +37,5 @@ All the data come from the Marvel API: https://developer.marvel.com/
 - App should now be running on `http://localhost:3000/`
 
 ## Link to the project🖇
-- `https://marvel-app-varflam.herokuapp.com/`
+
+- `https://varflam.github.io/marve--app/`
